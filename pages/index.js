@@ -302,11 +302,11 @@ export default function Home() {
           </a>
         </div>
         <div dangerouslySetInnerHTML={{ __html: "<div></div>" }} />
-        {/*<script
-          data-goatcounter="https://ssssssss.goatcounter.com/count"
+        <script
+          data-goatcounter="https://catchybrand.goatcounter.com/count"
           async
           src="//gc.zgo.at/count.js"
-  ></script>*/}
+        ></script>
       </footer>
 
       <style jsx>{`

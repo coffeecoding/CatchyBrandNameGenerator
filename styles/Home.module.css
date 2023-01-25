@@ -7,6 +7,73 @@
   align-items: center;
 }
 
+.brand {
+  font-size: 48px;
+  font-weight: 700;
+  background: linear-gradient(-30deg,
+      hsl(357deg 91% 59%) 0%,
+      hsl(17deg 100% 59%) 40%,
+      hsl(34deg 100% 53%) 70%,
+      hsl(45deg 100% 50%) 80%,
+      hsl(55deg 100% 50%) 90%,
+      hsl(55deg 100% 50%) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.button2 {
+  padding: 0.65rem 1.6rem 0.75rem 1.6rem;
+  color: white;
+  background-color: transparent;
+  background: transparent;
+  border: 2px solid #4f02ff;
+  font-weight: 600;
+  font-size: 16px;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+    sans-serif;
+  border-radius: 20px;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+.button2:hover {
+  border: 2px solid #601bff;
+  background: linear-gradient(0deg,
+      #601bff 0%,
+      #4989ff 100%);
+  transition: cubic-bezier(0.6, -0.28, 0.735, 0.045)
+}
+
+.spacer {
+  height: 40px
+}
+
+.spacerSmall {
+  height: 20px
+}
+
+.spacerSmaller {
+  height: 10px
+}
+
+.table>thead {
+  font-weight: 700;
+}
+
+.table>p {
+  text-align: left;
+}
+
+.tableColumnOne {
+  padding-right: 2em;
+}
+
+.tinyText {
+  font-size: 11px;
+  color: #ffffff88;
+}
+
 .title a {
   color: #0070f3;
   text-decoration: none;
@@ -33,6 +100,12 @@
   text-align: center;
 }
 
+.twitterLogo {
+  float: right;
+  fill: #1DA1F2;
+  margin-left: 0px;
+  padding-top: 2px;
+}
 
 .description {
   line-height: 1.5;

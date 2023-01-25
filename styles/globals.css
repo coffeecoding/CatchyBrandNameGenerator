@@ -1,9 +1,24 @@
-html,
+/*html,
 body {
   padding: 0;
   margin: 0;
   font-family: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
     Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}*/
+
+html,
+body {
+  padding: 0;
+  margin: 0 2vw;
+  color: white;
+  background-color: #192233;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+    sans-serif;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 a {
@@ -20,9 +35,27 @@ img {
   height: auto;
 }
 
-h1,
+h1 {
+  margin: 0 0 20px 0;
+  font-size: 32px;
+  text-align: center;
+}
+
+p {
+  margin: 0;
+  font-weight: 300;
+  font-size: 20px;
+  text-align: center;
+  line-height: 28px;
+}
+
+table {
+  margin: 0;
+  font-weight: 300;
+  font-size: 20px;
+}
+
 h2,
-p,
 ul {
   margin: 0;
 }
@@ -32,7 +65,89 @@ ul {
   list-style: none;
 }
 
+input[type="radio"] {
+  /* Add if not using autoprefixer */
+  -webkit-appearance: none;
+  appearance: none;
+  /* For iOS < 15 to remove gradient background */
+  background-color: #fff;
+  /* Not removed via appearance */
+  margin: 0 8px 0 0;
+  font: inherit;
+  color: currentColor;
+  width: 1.15em;
+  height: 1.15em;
+  border: 0.15em solid currentColor;
+  border-radius: 50%;
+  vertical-align: middle;
+  display: grid;
+  place-content: center;
+}
+
+label {
+  display: flex;
+  font-weight: 600;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+    sans-serif;
+}
+
+input[type="radio"]::before {
+  content: "";
+  width: 0.65em;
+  height: 0.65em;
+  border-radius: 50%;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em var(--form-control-color);
+}
+
+input[type="radio"]:checked::before {
+  transform: scale(1);
+  background-color: #0070f3;
+}
+
 button {
-  padding: 0.5rem 1rem;
-  font-weight: bold;
+  padding: 0.6rem 1.6rem 0.8rem 1.6rem;
+  color: white;
+  background: linear-gradient(0deg,
+      #4f02ff 0%,
+      #3f7ff6 100%);
+  font-weight: 600;
+  font-size: 16px;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+    sans-serif;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: linear-gradient(0deg,
+      #601bff 0%,
+      #4586ff 100%);
+  transition: cubic-bezier(0.6, -0.28, 0.735, 0.045)
+}
+
+footer {
+  width: 100%;
+  height: 100px;
+  color: #fff8;
+  border-top: 1px solid #292b2e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+footer img {
+  margin-left: 0.5rem;
+}
+
+footer a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
 }

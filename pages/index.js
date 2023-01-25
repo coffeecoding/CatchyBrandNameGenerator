@@ -38,7 +38,7 @@ export default function Home() {
     setIsGeneratingName(true);
     //await waitForTwoSeconds();
     const response = await fetch(
-      "http://localhost:3000/api/name?sc=" + syllableCount
+      "https://catchybrand.vercel.app/api/name?sc=" + syllableCount
     );
     const data = await response
       .json()

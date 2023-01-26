@@ -1,8 +1,11 @@
 import Head from "next/head";
+import Link from "next/link";
 import styles from "../styles/Home.module.css";
 import React, { Stack, useState, useEffect } from "react";
 import { Oval, ThreeDots } from "react-loader-spinner";
 import Availability from "../components/Availability";
+
+const env = process.env.NODE_ENV;
 
 export default function Home() {
   const [syllableCount, setSyllableCount] = useState("2");
@@ -38,7 +41,9 @@ export default function Home() {
     setIsGeneratingName(true);
     //await waitForTwoSeconds();
     const response = await fetch(
-      "https://catchybrand.vercel.app/api/name?sc=" + syllableCount
+      (env === "development"
+        ? "http://localhost:3000/api/name?sc="
+        : "https://catchybrand.vercel.app/api/name?sc=") + syllableCount
     );
     const data = await response
       .json()
@@ -73,7 +78,7 @@ export default function Home() {
     return isAvailable;
   };
 
-  const checkDomains = async () => {
+  /*const checkDomains = async () => {
     setBrandNameLastChecked(brandName);
     setShowDomains(true);
     setIsCheckingDomains(true);
@@ -98,7 +103,7 @@ export default function Home() {
     //const json = await data.json();
     //console.log(json);
     setIsCheckingDomains(false);
-  };
+  };*/
 
   const selectSyllableCount = (event) => {
     console.log("selected " + event.target.value);
@@ -177,11 +182,21 @@ export default function Home() {
           Like it? Check availabilities of top domain names while you're at it!
         </p>
         <div className={styles.spacerSmall} />
-        <button className={styles.button2} onClick={checkDomains}>
-          Check Domain availability
-        </button>
+        <div className={styles.tinyText}>
+          Redirects to instantdomainsearch.com
+        </div>
         <div className={styles.spacerSmaller} />
-        <div className={styles.tinyText}>Results may not be 100% accurate.</div>
+        <Link href={"/check/" + brandName}>
+          <button
+            className={styles.button2}
+            onClick={() =>
+              //window.open("https://instantdomainsearch.com/?q=" + brandName)
+              {}
+            }
+          >
+            Check Domain Availability
+          </button>
+        </Link>
         <div className={styles.spacerSmall} />
         {showDomains &&
           (isCheckingDomains ? (
@@ -250,12 +265,18 @@ export default function Home() {
         </p>
         <div className={styles.spacerSmall} />
         <p>
-          A catchy, easy to remember name can definitely do some of the
-          marketing for you.
+          A catchy, easy to remember name can do some of the marketing for you.
         </p>
-        <p>However, such names are hard to come by or think of.</p>
+        <p>
+          However, it may be a challenge to think of short, real words that
+          aren't already in use.
+        </p>
         <div className={styles.spacerSmall} />
-        <p>Yet many of them follow roughly one of the following patterns:</p>
+        <p>But a brand name doesn't need to have a meaning.</p>
+        <p>
+          Many successful brand names simply follow roughly one of these
+          patterns:
+        </p>
         <div className={styles.spacerSmaller} />
         <p className={styles.tinyText} style={{ lineHeight: "14px" }}>
           (C = Consonant or combination thereof, <br></br> V = Vowel or
@@ -264,7 +285,7 @@ export default function Home() {
         <div className={styles.spacerSmaller} />
         <p>VCV, VCVC, CVCV, CVCVC</p>
         <div className={styles.spacerSmall} />
-        <p>Like Apple, Tesla, Uber, Honda, Audi, Intel, Linux, ...</p>
+        <p>Like Sony, Xerox, Google, Pantone, Kodak, Vitol, ...</p>
         <div className={styles.spacerSmall} />
         <p>
           Catchy Brand Generator generates names following this pattern,{" "}

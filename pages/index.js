@@ -133,7 +133,7 @@ export default function Home() {
       </Head>
 
       <main>
-        <h1>Catchy Brand Name Generator</h1>
+        <h1>Catchy Brand Generator</h1>
         <p>9 of the 10 most successful brand names have 3 or less syllables.</p>
         <p>Of the top 100, about 75% do.</p>
         <p>
@@ -350,6 +350,7 @@ export default function Home() {
           flex-direction: column;
           justify-content: center;
           align-items: center;
+          margin: 0 2vw;
         }
       `}</style>
     </div>

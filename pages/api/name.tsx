@@ -1,7 +1,7 @@
 import { NextApiRequest } from "next";
 
 const vowels = "aeiou";
-const consonants = "bcdefghijklmnopqrstuvxyz";
+const consonants = "bcdfghjklmnpqrstvwxyz";
 
 const startingVowels = "a,e,i,o,u,ea";
 const endingConsonants =

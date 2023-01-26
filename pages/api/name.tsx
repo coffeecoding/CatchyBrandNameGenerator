@@ -79,7 +79,7 @@ function printStats() {
   console.log("  CVCVC: " + stats.complex.startingConsonant.cvcvc);
 }
 
-export async function generateName(syllableCount) {
+async function generateName(syllableCount) {
   var nickname = "";
   if (syllableCount === "2") {
     // simple version 50%

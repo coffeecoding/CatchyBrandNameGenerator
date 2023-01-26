@@ -4,6 +4,7 @@ import styles from "../styles/Home.module.css";
 import React, { Stack, useState, useEffect } from "react";
 import { Oval, ThreeDots } from "react-loader-spinner";
 import Availability from "../components/Availability";
+import { request } from "http";
 
 const env = process.env.NODE_ENV;
 
@@ -50,6 +51,17 @@ export default function Home() {
       .then((d) => setBrandName(d.name))
       .catch((error) => alert("An error occurred, try again!"));
     setIsGeneratingName(false);
+  };
+
+  const logLookup = async () => {
+    const host =
+      env === "development"
+        ? "http://localhost:3000"
+        : "https://catchybrand.vercel.app";
+    await fetch(host, {
+      method: "GET",
+      path: "/api/log?n=" + brandName,
+    }).catch(() => {});
   };
 
   const checkDomain = async (domain, tld) => {
@@ -186,19 +198,17 @@ export default function Home() {
           Redirects to instantdomainsearch.com
         </div>
         <div className={styles.spacerSmaller} />
-        <Link href={"/check/" + brandName} passHref legacyBehavior>
-          <a target="_blank" rel="noopener noreferrer">
-            <button
-              className={styles.button2}
-              onClick={() =>
-                //window.open("https://instantdomainsearch.com/?q=" + brandName)
-                {}
-              }
-            >
-              Check Domain Availability
-            </button>
-          </a>
-        </Link>
+        <a target="_blank" rel="noopener noreferrer">
+          <button
+            className={styles.button2}
+            onClick={async () => {
+              await logLookup();
+              window.open("https://instantdomainsearch.com/?q=" + brandName);
+            }}
+          >
+            Check Domain Availability
+          </button>
+        </a>
         <div className={styles.spacerSmall} />
         {showDomains &&
           (isCheckingDomains ? (

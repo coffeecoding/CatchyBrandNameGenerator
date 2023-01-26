@@ -44,8 +44,8 @@ h1 {
   text-align: center;
   font-weight: 700;
   background: linear-gradient(180deg,
-      rgb(233, 234, 248) 0%,
-      rgb(202, 220, 255) 100%);
+      rgb(255, 255, 255) 0%,
+      rgb(225, 225, 225) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }

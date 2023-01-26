@@ -7,7 +7,7 @@ function timestamp() {
 
 export default async function handler(req: NextApiRequest, res) {
   console.log(
-    "analytics " + timestamp() + ": checked domain '" + req.query.n + "'"
+    "analytics " + timestamp() + ": checked domain '" + req.body + "'"
   );
   res.status(200).json();
 }

@@ -56,11 +56,14 @@ export default function Home() {
   const logLookup = async () => {
     const host =
       env === "development"
-        ? "http://localhost:3000"
-        : "https://catchybrand.vercel.app";
+        ? "http://localhost:3000/api/log"
+        : "https://catchybrand.vercel.app/api/log";
     await fetch(host, {
-      method: "GET",
-      path: "/api/log?n=" + brandName,
+      method: "POST",
+      headers: new Headers({
+        "content-type": "text/plain",
+      }),
+      body: brandName,
     }).catch(() => {});
   };
 

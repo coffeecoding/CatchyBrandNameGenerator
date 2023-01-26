@@ -186,16 +186,18 @@ export default function Home() {
           Redirects to instantdomainsearch.com
         </div>
         <div className={styles.spacerSmaller} />
-        <Link href={"/check/" + brandName}>
-          <button
-            className={styles.button2}
-            onClick={() =>
-              //window.open("https://instantdomainsearch.com/?q=" + brandName)
-              {}
-            }
-          >
-            Check Domain Availability
-          </button>
+        <Link href={"/check/" + brandName} passHref legacyBehavior>
+          <a target="_blank" rel="noopener noreferrer">
+            <button
+              className={styles.button2}
+              onClick={() =>
+                //window.open("https://instantdomainsearch.com/?q=" + brandName)
+                {}
+              }
+            >
+              Check Domain Availability
+            </button>
+          </a>
         </Link>
         <div className={styles.spacerSmall} />
         {showDomains &&

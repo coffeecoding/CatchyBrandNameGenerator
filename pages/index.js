@@ -23,7 +23,7 @@ export default function Home() {
     //await waitForTwoSeconds();
     const response = await fetch(
       (env === "development"
-        ? "http://localhost:3001/api/name?sc="
+        ? "http://localhost:3000/api/name?sc="
         : "https://catchybrand.vercel.app/api/name?sc=") + syllableCount
     );
     const data = await response

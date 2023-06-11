@@ -55,8 +55,11 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Brand Name Generator</title>
-        <meta name="description" content="Brand Name Generator" />
+        <title>Brandnamer</title>
+        <meta
+          name="description"
+          content="Generate hundreds of unique startup and brand names within seconds!"
+        />
         <meta name="viewport" content="width=device-width"></meta>
         <meta name="application-name" content="Brand Name Generator" />
         <link rel="icon" href="/favicon.png" />

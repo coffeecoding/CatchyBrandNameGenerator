@@ -1,27 +1,15 @@
 import Head from "next/head";
-import Link from "next/link";
 import styles from "../styles/Home.module.css";
-import React, { Stack, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Oval, ThreeDots } from "react-loader-spinner";
 import Availability from "../components/Availability";
-import { request } from "http";
 
 const env = process.env.NODE_ENV;
 
 export default function Home() {
   const [syllableCount, setSyllableCount] = useState("2");
   const [brandName, setBrandName] = useState("");
-  const [brandNameLastChecked, setBrandNameLastChecked] = useState("");
-  const [showDomains, setShowDomains] = useState(false);
-  const [isCheckingDomains, setIsCheckingDomains] = useState(false);
   const [isGeneratingName, setIsGeneratingName] = useState(false);
-
-  const [isComAvailable, setIsComAvailable] = useState(false);
-  const [isAppAvailable, setIsAppAvailable] = useState(false);
-  const [isIoAvailable, setIsIoAvailable] = useState(false);
-  const [isNetAvailable, setIsNetAvailable] = useState(false);
-  const [isOrgAvailable, setIsOrgAvailable] = useState(false);
-  const [isCoAvailable, setIsCoAvailable] = useState(false);
 
   useEffect(() => {
     generateName();
@@ -30,20 +18,12 @@ export default function Home() {
     };
   }, []);
 
-  const waitForTwoSeconds = async () => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve();
-      }, 1000);
-    });
-  };
-
   const generateName = async () => {
     setIsGeneratingName(true);
     //await waitForTwoSeconds();
     const response = await fetch(
       (env === "development"
-        ? "http://localhost:3000/api/name?sc="
+        ? "http://localhost:3001/api/name?sc="
         : "https://catchybrand.vercel.app/api/name?sc=") + syllableCount
     );
     const data = await response
@@ -67,59 +47,6 @@ export default function Home() {
     }).catch(() => {});
   };
 
-  const checkDomain = async (domain, tld) => {
-    // https://stackoverflow.com/a/50101022
-    AbortSignal.timeout ??= function timeout(ms) {
-      const ctrl = new AbortController();
-      setTimeout(() => ctrl.close(), ms);
-      return ctrl.signal;
-    };
-
-    const fullhost = "http://" + domain + tld;
-    var options = {
-      host: fullhost,
-      method: "HEAD",
-      path: "/",
-      mode: "no-cors",
-      signal: AbortSignal.timeout(10000),
-    };
-    var isAvailable = false;
-    console.log("Checking " + fullhost + " ...");
-    await fetch(fullhost, options)
-      .then((_) => (isAvailable = false))
-      .catch((err) => {
-        isAvailable = true;
-      });
-    return isAvailable;
-  };
-
-  /*const checkDomains = async () => {
-    setBrandNameLastChecked(brandName);
-    setShowDomains(true);
-    setIsCheckingDomains(true);
-    await Promise.all([
-      checkDomain(brandName, ".com"),
-      checkDomain(brandName, ".app"),
-      checkDomain(brandName, ".io"),
-      checkDomain(brandName, ".net"),
-      checkDomain(brandName, ".org"),
-      checkDomain(brandName, ".co"),
-    ])
-      .then(([com, app, io, net, org, co]) => {
-        setIsComAvailable(com);
-        setIsAppAvailable(app);
-        setIsIoAvailable(io);
-        setIsNetAvailable(net);
-        setIsOrgAvailable(org);
-        setIsCoAvailable(co);
-      })
-      .catch(() => alert("An unexpected error occurred, try again later."));
-
-    //const json = await data.json();
-    //console.log(json);
-    setIsCheckingDomains(false);
-  };*/
-
   const selectSyllableCount = (event) => {
     console.log("selected " + event.target.value);
     setSyllableCount(event.target.value);
@@ -128,15 +55,15 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Catchy Brand Name Generator</title>
-        <meta name="description" content="Catchy Brand Name Generator" />
+        <title>Brand Name Generator</title>
+        <meta name="description" content="Brand Name Generator" />
         <meta name="viewport" content="width=device-width"></meta>
-        <meta name="application-name" content="Catchy Brand Name Generator" />
+        <meta name="application-name" content="Brand Name Generator" />
         <link rel="icon" href="/favicon.png" />
       </Head>
 
       <main>
-        <h1>Catchy Brand Generator</h1>
+        <h1>Catchy Brand Name Generator</h1>
         <p>9 of the 10 most successful brand names have 3 or less syllables.</p>
         <p>Of the top 100, about 75% do.</p>
         <p>
@@ -213,81 +140,19 @@ export default function Home() {
           </button>
         </a>
         <div className={styles.spacerSmall} />
-        {showDomains &&
-          (isCheckingDomains ? (
-            <Oval
-              height={80}
-              width={80}
-              color="#0070f3"
-              wrapperStyle={{}}
-              wrapperClass=""
-              visible={true}
-              ariaLabel="oval-loading"
-              secondaryColor="#0070f388"
-              strokeWidth={2}
-              strokeWidthSecondary={2}
-            />
-          ) : (
-            brandNameLastChecked && (
-              <table className={styles.table}>
-                <thead></thead>
-                <tbody>
-                  <tr>
-                    <td className={styles.tableColumnOne}>
-                      {brandNameLastChecked}.com
-                    </td>
-                    <td>
-                      <Availability value={isComAvailable} />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>{brandNameLastChecked}.app</td>
-                    <td>
-                      <Availability value={isAppAvailable} />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>{brandNameLastChecked}.io</td>
-                    <td>
-                      <Availability value={isIoAvailable} />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>{brandNameLastChecked}.net</td>
-                    <td>
-                      <Availability value={isNetAvailable} />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>{brandNameLastChecked}.org</td>
-                    <td>
-                      <Availability value={isOrgAvailable} />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>{brandNameLastChecked}.co</td>
-                    <td>
-                      <Availability value={isCoAvailable} />
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            )
-          ))}
         <div className={styles.spacerSmall} />
         <p>
-          <strong>Why Catchy Brand Name Generator?</strong>
+          <strong>Why Brand Name Generator?</strong>
         </p>
         <div className={styles.spacerSmall} />
         <p>
           A catchy, easy to remember name can do some of the marketing for you.
         </p>
         <p>
-          However, it may be a challenge to think of short, real words that
-          aren't already in use.
+          However, it may be a challenging to come up with a unique such name.
         </p>
         <div className={styles.spacerSmall} />
-        <p>But a brand name doesn't need to have a meaning.</p>
+        <p>What's more, a brand name doesn't need to have a meaning.</p>
         <p>
           Many successful brand names simply follow roughly one of these
           patterns:
@@ -300,24 +165,21 @@ export default function Home() {
         <div className={styles.spacerSmaller} />
         <p>VCV, VCVC, CVCV, CVCVC</p>
         <div className={styles.spacerSmall} />
-        <p>Like Sony, Xerox, Google, Pantone, Kodak, Vitol, ...</p>
+        <p>
+          Kind of like Sony, Xerox, Google, Pantone, ... well, you get the
+          point.
+        </p>
         <div className={styles.spacerSmall} />
         <p>
-          Catchy Brand Generator generates names following this pattern,{" "}
-          <br></br>in addition to following some other heuristics.
+          Brand Name Generator generates names following this pattern, <br />
+          in addition to following some other heuristics.
         </p>
         <div className={styles.spacerSmaller} />
         <p>
-          Most of the names generated are quick and easy to pronounce as well as
-          memorize.
+          However it may take a few tries to come across a great one.
+          <br />
+          So keep spamming that <strong>Generate New</strong> button!
         </p>
-        <p>
-          The generated terms mostly don't carry any meaning, which may also be
-          desired.
-        </p>
-        <div className={styles.spacerSmaller} />
-        <p>Examples of innovative, modern names this generates are:</p>
-        <p>Yeebsi, Pludra, Jeanpine, Vooper, and Tingpate.</p>
         <div className={styles.spacerSmall} />
         <button onClick={() => window.open("https://ko-fi.com/yscodes")}>
           Support me on Ko-Fi 💝
@@ -326,7 +188,7 @@ export default function Home() {
 
       <footer>
         <div>
-          &copy; 2023 | Made <span> </span>
+          &copy; 2023 Brandnamer | Made <span> </span>
           <span> </span>by WiseCodes
           <a
             target="_blank"
